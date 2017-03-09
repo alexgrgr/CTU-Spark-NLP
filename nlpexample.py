@@ -141,13 +141,11 @@ def spark_webhook (req):
                 #            sbuffer['roomId'])
                 sbuffer["message"] = "Ups, apiai no ha asociado su pregunta a \
                 ningún intent"
+        spark.bot_answer(
+                    sbuffer["message"],
+                    sbuffer['roomId'])
     else:
-        status = "Error buffering"
-        sbuffer["message"] = "Ha habido un error al guardar la información \
-        desde Spark"
-    spark.bot_answer(
-                sbuffer["message"],
-                sbuffer['roomId'])
+        status = "Error buffering or message from bot"
     return status
 
 
