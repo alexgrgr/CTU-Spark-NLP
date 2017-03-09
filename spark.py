@@ -22,11 +22,6 @@ def get_displayName (personId):
     JSON = message.json()
     return JSON.get("displayName")
 
-def mention (displayName, personEmail):
-    # Formats a mention in a spark markdown message
-    mention = "<@personEmail:"+ personEmail + "|" + displayName +">"
-    return mention
-
 def bot_answer(message, roomId):
     # This will generate a response to spark
     # [Debug]

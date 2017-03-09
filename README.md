@@ -139,3 +139,5 @@ Finally, set api.ai WebHook to target your app. Go to *Fulfillment*, select enab
     **If the question was *look for a datasheet*, look for it at Smartsheet and answer the user**
 
 + End of the code, wait for next message.
+
+> **Final note:** this code talks directly to Spark's API. It is highly recommended to use an SDK (sometimes called *API wrapper*), to manage the communication and errors. In Python, you could use [ciscosparkapi](https://github.com/CiscoDevNet/ciscosparkapi)

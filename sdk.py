@@ -32,12 +32,6 @@ def get_user(req, sbuffer, user):
     if not found: print ("Error, different sessionId")
     return found
 
-def is_cisco (user):
-    # If users email contains @cisco.com, then is must be a Cisco Employee
-    #print ("User email [is_cisco]" +  user['personEmail'])
-    if "@cisco.com" in user['personEmail']: return True
-    else: return False
-
 def search (smartsheet, query):
     # The PAM of the specified user is searched or user's PAM. The sheet with
     # this information has sheetid= 6064162607523716
