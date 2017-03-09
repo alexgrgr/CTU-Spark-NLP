@@ -136,7 +136,7 @@ def spark_webhook (req, start):
                                 sbuffer['message'],
                                 None,
                                 sbuffer['roomId'])
-        else: status = "Error buffering"
+    else: status = "Error buffering"
     return status
 
 
