@@ -46,10 +46,11 @@ Please, create a new bot at [Documentation->Creating a Spark Bot](https://develo
 - **Upload intents**
 + [Follow this link](https://github.com/alexgrgr/CTU-Spark-NLP/raw/master/agent/CTU-NLP-Example.zip) and download the zip file.
 + Create a new agent
-+ Go to Setting->Impot and Export->Restore from zip
++ Go to Setting->Import and Export->Restore from zip
 + Select the zip you have just downloaded
+
 - **Get Token**
-+ Got to Settings->General and copy the *Client access token* under *API KEYS*
+- Got to Settings->General and copy the *Client access token* under *API KEYS*
 > Write down the access token for a later use
 
 4. **Prepare a PaaS (*Platform as a Service*) for executing the code that will compose your bot.**
@@ -111,18 +112,18 @@ Your message needs to look this way:
 So you must set the following parameters:
 + **name**: `CTU Spark NLP Example`
 + **targetUrl**: where `[yourdynoname]` is the name given before to your Dyno
-+ **resource**: `message`
++ **resource**: `messages`
 + **event**: `created`
 
 > Now Spark knows where on the internet it must send the messages referred to your bot
 
 6. **Set a webHook to your Dyno in api.ai**
 
-Finally, set api.ai WebHook to target your app. Go to *Fulfillment*, select enable and set URL as https://[yourdynoname].herokuapp.com/apiai. This will make your app know that the one asking is api.ai, and a different code will be executed.
+Finally, set api.ai WebHook to target your app. Go to *Fulfillment*, select enable and set URL as `https://[yourdynoname].herokuapp.com/apiai`. This will make your app know that the one asking is api.ai, and a different code will be executed.
 
 ##Ready
 
-+ Any time your bot is referred in a Space, or chatted on a 1-to-1 Space, Spark will send a WebHook to `https://[yourdynoname].herokuapp.com/webhook`
++ Any time your bot is mentioned in a Space, or chatted on a 1-to-1 Space, Spark will send a WebHook to `https://[yourdynoname].herokuapp.com/webhook`
 + Your Dyno is composed of some *Python* code over a web framework called *Flask*. Everytime a `GET` http request is received on the URL path `/webhook`, some code will be executed.
 + First of all, the WebHook does not include the message. Instead, a `messageId` is provided. So in order to have it, a `GET` http request is sent to Spark.
 + Then, the message `/search [something]` from a user will be decompossed into the command and the query.
