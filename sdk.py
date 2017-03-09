@@ -61,8 +61,8 @@ def search (smartsheet, query):
         # If the before object doesn´t exists
         result = "Disculpe, no tenemos información de su pregunta " + query
     else:
-        result = "El Datasheet del dispositivo **" + question + "** está [aquí]("
-        + answer + ")"
+        result = "El Datasheet del dispositivo **" + question + "** está [aquí]\
+        ("+ answer +")"
     print("Para apiai: " + result)
     return result
 
