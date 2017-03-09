@@ -88,7 +88,7 @@ def webhook():
     # Every message from Spark is received here. I will be analyzed and sent to
     # api.ai response will then sent back to Spark
     req = request.get_json(silent=True, force=True)
-    res = spark_webhook(req, start)
+    res = spark_webhook(req)
     return None
 
 @app.route('/apiai', methods=['POST','GET'])
@@ -107,7 +107,7 @@ def apiai():
 
 
 
-def spark_webhook (req, start):
+def spark_webhook (req):
     # JSON is from Spark. This will contain the message, a personId, displayName,
     # and a personEmail that will be buffered for future use
     if sdk.buffer_it(req, sbuffer):
