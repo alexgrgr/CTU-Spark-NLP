@@ -1,6 +1,8 @@
 #CTU Spark and NLP integration example
 
 > Take a look to [CTU Spark Commands](https://github.com/alexgrgr/CTU-Spark-Commands) before this exercise
+
+
 ## How to use a Spark Bot to answer a user´s *natural language* question with the ability to retreive data from external sources
 
 This example shows how you can use a NLP (*Natural Language Procesor*), such as `Api.ai` to provide
