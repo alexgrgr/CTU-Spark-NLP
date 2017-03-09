@@ -41,14 +41,14 @@ Please, create a new bot at [Documentation->Creating a Spark Bot](https://develo
 3. **Set your agent at api.ai**
 
 - **Upload intents**
-+ Follow this link and download the zip file.
++ [Follow this link](https://github.com/alexgrgr/CTU-Spark-NLP/raw/master/agent/CTU-NLP-Example.zip) and download the zip file.
 + Create a new agent
 + Go to Setting->Impot and Export->Restore from zip
 + Select the zip you have just downloaded
 - **Get Token**
 + Got to Settings->General and copy the *Client access token* under *API KEYS*
 > Write down the access token for a later use
->
+
 4. **Prepare a PaaS (*Platform as a Service*) for executing the code that will compose your bot.**
 
 Again, follow this link to deploy the necessary code automatically on a Dyno:
@@ -67,6 +67,8 @@ You will be presented with a page as follow:
 
 |                Variable | Value                                                            |
 |------------------------:|:-----------------------------------------------------------------|
+|      APIAI_ACCESS_TOKEN | Your Client Access Token                                         |
+|              APIAI_LANG | The language used by users                                       |
 | SMARTSHEET_ACCESS_TOKEN | Your *Smartsheet*´s Token to access *API*                        |
 |                SHEET_ID | The *Smartsheet*'s sheet ID were info is located                 |
 |      SPARK_ACCESS_TOKEN | Your bot´s Token to access *Spark* *API*                         |
@@ -75,9 +77,9 @@ You will be presented with a page as follow:
 + Deploy!
 
 
-4. **Set a WebHook to your Dyno in Spark**
+5. **Set a WebHook to your Dyno in Spark**
 
-Finally, link Spark with your app you will need to set a target where Spark will send all messages received by the bot. This is called a **Webhook**. Please refer to the following documentation:
+To link Spark with your app you will need to set a target where Spark will send all messages received by the bot. This is called a **Webhook**. Please refer to the following documentation:
  [*Spark WebHook Creation*](https://developer.ciscospark.com/endpoint-webhooks-post.html "Create an Spark Webhook").
 
 You will notice on the left side of the above web the construction of the JSON message needed by Spark in order to contact it's API:
@@ -97,19 +99,23 @@ Clicking on the scroll button you will change the mode to test mode. This allows
 Your message needs to look this way:
 ```JSON
 {
-  "name" : "CTU Spark Commands Example",
+  "name" : "CTU Spark NLP Example",
   "targetUrl" : "https://[yourdynoname].herokuapp.com/webhook",
   "resource" : "messages",
   "event" : "created",
 }
 ```
 So you must set the following parameters:
-+ **name**: `CTU Spark Commands Example`
++ **name**: `CTU Spark NLP Example`
 + **targetUrl**: where `[yourdynoname]` is the name given before to your Dyno
 + **resource**: `message`
 + **event**: `created`
 
 > Now Spark knows where on the internet it must send the messages referred to your bot
+
+6. **Set a webHook to your Dyno in api.ai**
+
+Finally, set api.ai WebHook to target your app. Go to *Fulfillment*, select enable and set URL as https://[yourdynoname].herokuapp.com/apiai. This will make your app know that the one asking is api.ai, and a different code will be executed.
 
 ##Ready
 
@@ -117,11 +123,19 @@ So you must set the following parameters:
 + Your Dyno is composed of some *Python* code over a web framework called *Flask*. Everytime a `GET` http request is received on the URL path `/webhook`, some code will be executed.
 + First of all, the WebHook does not include the message. Instead, a `messageId` is provided. So in order to have it, a `GET` http request is sent to Spark.
 + Then, the message `/search [something]` from a user will be decompossed into the command and the query.
-+ This logic will be applied:
++ If no identificable command is present, your app will send the message to api.ai to identify it
++ If the answer is known by api.ai, user will be answered with it
++ If the answer needs Smartsheet, Api.ai will send a WebHook to `https://[yourdynoname].herokuapp.com/apiai`
++ Everytime a `GET` http request is received on the URL path `/apiai`, your app will look at Smartsheet.
++ So, this logic will be applied:
 
     **If `/search` exists, then search `[something]` in Smartsheet**
 
-    **If `/search` does not exists, respond the user with the error**
+    **If `/search` does not exists, send question to apiai**
+
+    **If the answer is known, respond the user**
+
+    **If the question was *look for a datasheet*, look for it at Smartsheet and answer the user**
 
 + End of the code, wait for next message.
 
