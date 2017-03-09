@@ -127,15 +127,22 @@ def spark_webhook (req):
             # identify the question.
             query = sbuffer["message"]
             # Once this is done, we need to prepare and send the message for APIai
-            status = apiaiNlp.apiai_send (ai, sbuffer, abuffer)
-            #sdk.confident()
-            #print("Convert to spark")
-            apiaiNlp.apiai2spark(abuffer, sbuffer)
-            # To add time elapsed, concatenate with message: + " \n\n \n\n Time
-            # elapsed: " + str(timedelta(seconds=time.time() - start))
-            status = spark.bot_answer(
-                                sbuffer['message'],
-                                sbuffer['roomId'])
+            done = apiaiNlp.apiai_send (ai, sbuffer, abuffer)
+            if done:
+                #sdk.confident()
+                #print("Convert to spark")
+                apiaiNlp.apiai2spark(abuffer, sbuffer)
+                # To add time elapsed, concatenate with message: + " \n\n \n\n Time
+                # elapsed: " + str(timedelta(seconds=time.time() - start))
+                status = spark.bot_answer(
+                                    sbuffer['message'],
+                                    sbuffer['roomId'])
+            else:
+                status = "apiai does not know the answer"
+                spark.bot_answer(
+                            "Ups, apiai no ha asociado su pregunta a ningún \
+                            intent",
+                            sbuffer['roomId'])
     else: status = "Error buffering"
     return status
 
