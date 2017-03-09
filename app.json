@@ -1,0 +1,29 @@
+{
+  "name": "CTU Spark and NLP integration Example",
+  "description": "Simple example that uses a Natural Language Processor throught Spark to trigger an action or answer from a list",
+  "repository": "https://github.com/alexgrgr/CTU-Spark-NLP",
+  "logo": "https://raw.githubusercontent.com/alexgrgr/CTU-Spark-NLP/master/docs/images/Cisco%20Logo.png",
+  "keywords": ["commands", "CTU","Cisco Spark"],
+  "env": {
+    "APIAI_ACCESS_TOKEN":{
+      "description": "APIAI Client Access Token"
+    },
+    "APIAI_LANG":{
+      "description": "Language for the user's messages",
+      "value": "es"
+    },
+    "SPARK_ACCESS_TOKEN": {
+      "description": "Spark Access Token"
+    },
+    "SMARTSHEET_ACCESS_TOKEN": {
+      "description": "Smartsheet Access Token"
+    },
+    "SHEET_ID":{
+      "description":"Sheet where data is located"
+    },
+    "BOT_EMAIL": {
+      "description": "Email Ending with @sparkbot.io Here",
+      "value": "@sparkbot.io"
+    }
+  }
+}
