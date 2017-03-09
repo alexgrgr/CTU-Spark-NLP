@@ -109,41 +109,45 @@ def apiai():
 
 def spark_webhook (req):
     # JSON is from Spark. This will contain the message, a personId, displayName,
-    # and a personEmail that will be buffered for future use
+    # and a personEmail that will be buffered for future use.
+    # This time, code has been splitted in different parts for clarity
+    # The next function is contained at the sdk file on the same path
+    # as this main code.
     if sdk.buffer_it(req, sbuffer):
         # If a command is identified, you don´t need to ask to api.ai
         if "/search" in sbuffer["message"]:
             query = sbuffer["message"].replace('/search', '')
             #[debug]
             print ("Asked to search " + query)
-            # This time, code has been splitted in different parts for clarity
-            # The next function is contained at the sdk file on the same path
-            # as this main code.
-            # Also, answer will overwrite the question in the buffer
+            # Also, the answer will overwrite the question in the buffer
             sbuffer['message'] = sdk.search (smartsheet, query)
+            print(sbuffer["message"])
             status = "Search OK"
         else:
             # If we cannot guess any command, then we will use api.ai to
-            # identify the question.
-            query = sbuffer["message"]
-            # Once this is done, we need to prepare and send the message for APIai
+            # identify the question. Once this is done, we need to prepare and
+            # send the message for APIai
             done = apiaiNlp.apiai_send (ai, sbuffer, abuffer)
             if done:
-                #sdk.confident()
-                #print("Convert to spark")
                 apiaiNlp.apiai2spark(abuffer, sbuffer)
-                # To add time elapsed, concatenate with message: + " \n\n \n\n Time
-                # elapsed: " + str(timedelta(seconds=time.time() - start))
-                status = spark.bot_answer(
-                                    sbuffer['message'],
-                                    sbuffer['roomId'])
+                #status = spark.bot_answer(
+                #                    sbuffer['message'],
+                #                    sbuffer['roomId'])
             else:
                 status = "apiai does not know the answer"
-                spark.bot_answer(
-                            "Ups, apiai no ha asociado su pregunta a ningún \
-                            intent",
-                            sbuffer['roomId'])
-    else: status = "Error buffering"
+                #spark.bot_answer(
+                #            "Ups, apiai no ha asociado su pregunta a ningún \
+                #            intent",
+                #            sbuffer['roomId'])
+                sbuffer["message"] = "Ups, apiai no ha asociado su pregunta a \
+                ningún intent"
+    else:
+        status = "Error buffering"
+        sbuffer["message"] = "Ha habido un error al guardar la información \
+        desde Spark"
+    spark.bot_answer(
+                sbuffer["message"],
+                sbuffer['roomId'])
     return status
 
 
@@ -151,7 +155,7 @@ def apiai_webhook(req):
     # JSON is from api.ai. This will contain the message, the action and the
     # parameters
     print ("Parameters: "+str(req.get("result").get("parameters")))
-    # api.ai request to search for an employee
+    # api.ai request to search for a datasheet
     action = req.get("result").get("action")
     if  action == 'search.query':
         if sdk.get_user(req, sbuffer, user):
@@ -161,9 +165,11 @@ def apiai_webhook(req):
             string_res="Fallo en la obtención del usuario desde Spark. Pruebe \
                         de nuevo, por favor."
     else:
+        # If the action is different from the aboves, you answer this
         string_res = "Ooops, se ha confundido con el **action**\n\t \
                     Action: " + str(action) + ", y deberia ser search.query"
     return{
+        # This is the JSON structure apiai is expecting
         "speech": str(string_res),
         "displayText": str(string_res),
         "source": "nlpexample.py"

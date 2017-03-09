@@ -63,7 +63,7 @@ def search (smartsheet, query):
     else:
         result = "El Datasheet del dispositivo **" + question + "** está [aquí]\
         ("+ answer +")"
-    print("Para apiai: " + result)
+    print("Para apiai/spark si se ha usado comando: " + result)
     return result
 
 def buffer_it(JSON, sbuffer):

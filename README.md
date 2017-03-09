@@ -1,5 +1,6 @@
 #CTU Spark and NLP integration example
 
+> Take a look to [CTU Spark Commands](https://github.com/alexgrgr/CTU-Spark-Commands) before this exercise
 ## How to use a Spark Bot to answer a user´s *natural language* question with the ability to retreive data from external sources
 
 This example shows how you can use a NLP (*Natural Language Procesor*), such as `Api.ai` to provide
@@ -13,7 +14,7 @@ Now, your bot will also be able to answer to spare questions so it will look mor
 
 As before, possible sensitive data could be stored safely in your databases and in this example we will use *Smartsheet* again for storing the links to the products datasheets.
 
-This new arquitecture looks like this:
+This is how the new arquitecture looks like:
 
 ![Architecture](docs/images/architecture.png)
 
@@ -65,14 +66,14 @@ You will be presented with a page as follow:
 
 ![Variables](docs/images/newappvar.JPG)
 
-|                Variable | Value                                                            |
-|------------------------:|:-----------------------------------------------------------------|
-|      APIAI_ACCESS_TOKEN | Your Client Access Token                                         |
-|              APIAI_LANG | The language used by users                                       |
-| SMARTSHEET_ACCESS_TOKEN | Your *Smartsheet*´s Token to access *API*                        |
-|                SHEET_ID | The *Smartsheet*'s sheet ID were info is located                 |
-|      SPARK_ACCESS_TOKEN | Your bot´s Token to access *Spark* *API*                         |
-|               BOT_EMAIL | Your bot´s email to discard its own messages                     |
+|                Variable | Value                                              |
+|------------------------:|:---------------------------------------------------|
+|      APIAI_ACCESS_TOKEN | Your Client Access Token                           |
+|              APIAI_LANG | The language used by users                         |
+| SMARTSHEET_ACCESS_TOKEN | Your *Smartsheet*´s Token to access *API*          |
+|                SHEET_ID | The *Smartsheet*'s sheet ID were info is located   |
+|      SPARK_ACCESS_TOKEN | Your bot´s Token to access *Spark* *API*           |
+|               BOT_EMAIL | Your bot´s email to discard its own messages       |
 
 + Deploy!
 
