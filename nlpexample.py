@@ -121,6 +121,7 @@ def spark_webhook (req):
             # as this main code.
             # Also, answer will overwrite the question in the buffer
             sbuffer['message'] = sdk.search (smartsheet, query)
+            status = "Search OK"
         else:
             # If we cannot guess any command, then we will use api.ai to
             # identify the question.
