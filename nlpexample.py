@@ -134,7 +134,6 @@ def spark_webhook (req):
             # elapsed: " + str(timedelta(seconds=time.time() - start))
             status = spark.bot_answer(
                                 sbuffer['message'],
-                                None,
                                 sbuffer['roomId'])
     else: status = "Error buffering"
     return status
