@@ -117,7 +117,7 @@ So you must set the following parameters:
 
 > Now Spark knows where on the internet it must send the messages referred to your bot
 
-6. **Set a webHook to your Dyno in api.ai**
+6. **Set a WebHook to your Dyno in api.ai**
 
 Finally, set api.ai WebHook to target your app. Go to *Fulfillment*, select enable and set URL as `https://[yourdynoname].herokuapp.com/apiai`. This will make your app know that the one asking is api.ai, and a different code will be executed.
 
